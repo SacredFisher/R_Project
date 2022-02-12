@@ -98,7 +98,8 @@ j10 %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,i
 
 ##alternate approach 
 nuchart <- charts %>% filter(date >= '1997-08-31', rank<=5, `peak-rank`<=3) %>% distinct(song, artist, .keep_all = T) %>% left_join(songs, by = "song") %>% distinct(song, artist , .keep_all =T) %>% 
-  select(date, rank, song, artist, `peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness)
+  select(date, rank, song, artist, `peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness) %>%
+  as.data.frame() %>% write_xlsx('/home/srikar/Code/R_Project/top.xlsx')
 
 head(charts$song, 15)
 head(songs$song, 15)
