@@ -4,6 +4,8 @@ library(stringr)
 library(RColorBrewer)
 library(writexl)
 library(data.table)
+library(readxl)
+
 charts <- read_csv('charts.csv')
 songs <- read_csv('song_data.csv')
 
@@ -101,5 +103,167 @@ nuchart <- charts %>% filter(date >= '1997-08-31', rank<=5, `peak-rank`<=3) %>% 
   select(date, rank, song, artist, `peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness) %>%
   as.data.frame() %>% write_xlsx('/home/srikar/Code/R_Project/top.xlsx')
 
-head(charts$song, 15)
-head(songs$song, 15)
+
+
+#1997 onwards
+full<-read_excel('topfill.xlsx')
+full %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+
+
+#1997 to 2000
+full %>%  filter(date < '2000-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+full %>%  filter(date < '2000-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs")
+
+#2000 to 2005
+full %>%  filter(date >= '2000-01-01' & date<="2005-12-31") %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+full %>%  filter(date >= '2000-01-01' & date<="2005-12-31") %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs")
+
+#2005 to 2010
+full %>%  filter(date >= '2006-01-01' & date <= "2010-12-31") %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+full %>%  filter(date >= '2006-01-01' & date <= "2010-12-31") %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs")
+
+#2010 to 2015
+full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs")
+
+#2015 to 2021
+full %>% filter(date >= '2016-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+full %>% filter(date >= '2016-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,
+       instrumentalness,liveness,loudness, tempo, speechiness)
+
+
+
+####Analysis##### 
+
+#1997 to 2000
+#Find Average stats 
+nines <- full %>%  filter(date < '2000-01-01') %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness )
+
+##More Acoustic
+full %>%  filter(date < '2000-01-01') %>% 
+    select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+    filter(acousticness > .5) %>% summary()
+full %>%  filter(date < '2000-01-01') %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness > .5) %>% as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+
+##Less Acoustic 
+full %>%  filter(date < '2000-01-01') %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness < .5) %>% summary()
+full %>%  filter(date < '2000-01-01') %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness < .5) %>% as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+
+
+
+
+#2000 to 2005
+##More Acoustic
+full %>%  filter(date >= '2000-01-01' & date<="2005-12-31") %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness > .5) %>% summary()
+full %>%  filter(date >= '2000-01-01' & date<="2005-12-31") %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness > .5) %>% as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+
+##Less Aucoustic 
+full %>%  filter(date >= '2000-01-01' & date<="2005-12-31") %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness < .5) %>% summary()
+full %>%  filter(date >= '2000-01-01' & date<="2005-12-31") %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness < .5) %>% as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+
+
+
+
+#2005 to 2010
+#More Acu 
+full %>%  filter(date >= '2006-01-01' & date <= "2010-12-31") %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness > .5) %>% summary()
+full %>%  filter(date >= '2006-01-01' & date <= "2010-12-31") %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness > .5) %>% as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+
+
+
+#Less Acu
+full %>%  filter(date >= '2006-01-01' & date <= "2010-12-31") %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness < .5) %>% summary()
+full %>%  filter(date >= '2006-01-01' & date <= "2010-12-31") %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness < .5) %>% as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+
+
+#2010 to 2015
+#more
+full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness > .5) %>% summary()
+  #to Plot
+  full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% 
+  select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+  filter(acousticness > .5) %>% as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+
+#less
+  full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% 
+    select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+    filter(acousticness < .5) %>% summary()
+  #to Plot
+  full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% 
+    select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+    filter(acousticness < .5) %>% as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+
+
+
+#2015 to 2021
+#more
+  full %>%  filter(date >= '2016-01-01') %>% 
+    select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+    filter(acousticness > .5) %>% summary()
+  #to Plot
+  full %>%  filter(date >= '2016-01-01') %>% 
+    select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+    filter(acousticness > .5) %>% as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+
+#less
+  full %>%  filter(date >= '2016-01-01') %>% 
+    select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+    filter(acousticness < .5) %>% summary()
+  #to Plot
+  full %>%  filter(date >= '2016-01-01') %>% 
+    select(`peak-rank`, `weeks-on-board`,acousticness,danceability,energy, instrumentalness, happiness ) %>%
+    filter(acousticness < .5) %>% as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+
