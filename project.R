@@ -26,12 +26,12 @@ nuchart <- charts %>% filter(date >= '1997-08-31', rank<=5, `peak-rank`<=3) %>% 
   select(date, rank, song, artist, `peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness) %>%
   as.data.frame() %>% write_xlsx('/home/srikar/Code/R_Project/top.xlsx')
 
-
+####Top.xlsx was then manually filled for missing data. 
 
 #1997 onwards
 full<-read_excel('topfill.xlsx')
 full %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
-  as.matrix() %>% cor(use="complete.obs") %>% heatmap(col = coul)
+  as.matrix() %>% cor(use="complete.obs")
 
 
 #1997 to 2000
@@ -115,21 +115,25 @@ full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% select(`weeks-
 
 filt<- full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') 
 x<-filt$`weeks-on-board` 
-filt$normalized = (x-min(x))/(max(x)-min(x))
+normalized = (x-min(x))/(max(x)-min(x))
 filt$weeks_quartile<-quantcut(normalized, 4)
 
 temp<-full %>%filter(date >= '2011-01-01' & date <= '2015-12-31', `weeks-on-board` >29) 
 temp$acousticness %>% sd()
 
-filt %>% 
-  ggplot() + geom_boxplot(aes(weeks_quartile, acousticness, group = weeks_quartile)) + labs(title="The Longest Lasting Songs were Acoustic")
+p1<- filt %>% 
+  ggplot() + geom_boxplot(aes(weeks_quartile, acousticness, group = weeks_quartile)) + labs(title="The Longest Lasting Songs were Acoustic...")
 
 
 ##2016-2021
+filt2<- full %>%  filter(date >= '2016-01-01')
+x2<-filt2$`weeks-on-board` 
+normalized2 = (x2-min(x2))/(max(x2)-min(x2))
+filt2$weeks_quartile<-quantcut(normalized2, 4)
 
-
-
-
+p2<- filt2 %>% ggplot() + geom_boxplot(aes(weeks_quartile, acousticness, group = weeks_quartile))  + labs(title="...but not anymore!")
+  
+p1+p2
 
 
 
