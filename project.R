@@ -6,6 +6,9 @@ library(writexl)
 library(data.table)
 library(readxl)
 library(ggcorrplot)
+library(patchwork)
+library(gtools)
+
 
 charts <- read_csv('charts.csv')
 songs <- read_csv('song_data.csv')
@@ -36,9 +39,10 @@ full %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,
 p.mat90 <- full %>%  filter(date < '2000-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>% cor_pmat()
 #corr matrix and plot
-full %>%  filter(date < '2000-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+plt_1<- full %>%  filter(date < '2000-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>% 
-  ggcorrplot( hc.order = TRUE, type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat90) +labs(title="1997-2000 Correlations")
+  ggcorrplot(type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat90) +labs(title="1997-2000 Correlations")
+#  ggcorrplot( hc.order = TRUE, type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat90) +labs(title="1997-2000 Correlations")
 
 
 
@@ -48,10 +52,11 @@ full %>%  filter(date < '2000-01-01') %>% select(`peak-rank`, `weeks-on-board`, 
 p.mat00 <- full %>%  filter(date >= '2000-01-01' & date<="2005-12-31") %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>% cor_pmat()
 #corr matrix and plot
-full %>%  filter(date >= '2000-01-01' & date<="2005-12-31") %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+plt_2<-full %>%  filter(date >= '2000-01-01' & date<="2005-12-31") %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>%
-  ggcorrplot( hc.order = TRUE, type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat00) +labs(title="2001-2005 Correlations")
+  ggcorrplot(type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat00) +labs(title="2001-2005 Correlations")
 
+#ggcorrplot( hc.order = TRUE, type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat00) +labs(title="2001-2005 Correlations")
 
 
 #2005 to 2010
@@ -59,9 +64,10 @@ full %>%  filter(date >= '2000-01-01' & date<="2005-12-31") %>% select(`peak-ran
 p.mat05 <- full %>%  filter(date >= '2006-01-01' & date <= "2010-12-31") %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>% cor_pmat()
 #corr matrix and plot 
-full %>%  filter(date >= '2006-01-01' & date <= "2010-12-31") %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+plt_3<-full %>%  filter(date >= '2006-01-01' & date <= "2010-12-31") %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>%
-  ggcorrplot( hc.order = TRUE, type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat05) +labs(title="2006-2010 Correlations")
+  ggcorrplot(type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat05) +labs(title="2006-2010 Correlations")
+#  ggcorrplot( hc.order = TRUE, type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat05) +labs(title="2006-2010 Correlations")
 
 
  
@@ -70,10 +76,10 @@ full %>%  filter(date >= '2006-01-01' & date <= "2010-12-31") %>% select(`peak-r
 p.mat10<- full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>% cor_pmat()
 #corr matrix and plot 
-full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+plt_4<-full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>%
-  ggcorrplot( hc.order = TRUE, type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat10) +labs(title="2011-2015 Correlations")
-
+  ggcorrplot( type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat10) +labs(title="2011-2015 Correlations")
+# ggcorrplot( hc.order = TRUE, type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat10) +labs(title="2011-2015 Correlations")
 
 
 
@@ -83,9 +89,85 @@ full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% select(`peak-r
 p.mat15<- full %>% filter(date >= '2016-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>% cor_pmat()
 #corr matrix and plot 
-full %>% filter(date >= '2016-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+plt_5<-full %>% filter(date >= '2016-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>%
-  ggcorrplot( hc.order = TRUE, type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat15) +labs(title="2016-2021 Correlations")
+  ggcorrplot( type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat15) +labs(title="2016-2021 Correlations")
+
+#  ggcorrplot( hc.order = TRUE, type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat15) +labs(title="2016-2021 Correlations")
+
+
+
+
+#Plot One
+(plt_1 + plt_2+ plt_3) 
+
+#Plot Two
+(plt_4 |plt_5)
+
+
+
+
+
+##Investigating the Acoustic Songs in 2010-2015
+full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% select(`weeks-on-board`)
+
+
+
+filt<- full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') 
+x<-filt$`weeks-on-board` 
+filt$normalized = (x-min(x))/(max(x)-min(x))
+filt$weeks_quartile<-quantcut(normalized, 4)
+
+temp<-full %>%filter(date >= '2011-01-01' & date <= '2015-12-31', `weeks-on-board` >29) 
+temp$acousticness %>% sd()
+
+filt %>% 
+  ggplot() + geom_boxplot(aes(weeks_quartile, acousticness, group = weeks_quartile)) + labs(title="The Longest Lasting Songs were Acoustic")
+
+
+##2016-2021
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
