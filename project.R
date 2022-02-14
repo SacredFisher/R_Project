@@ -8,7 +8,7 @@ library(readxl)
 library(ggcorrplot)
 library(patchwork)
 library(gtools)
-library(shiny)
+
 
 
 
@@ -16,8 +16,6 @@ library(shiny)
 
 charts <- read_csv('charts.csv')
 songs <- read_csv('song_data.csv')
-
-coul <- colorRampPalette(brewer.pal(8, "PRGn"))(25)
 
 #regularize name column
 songs<-songs%>%dplyr::rename(song = song_name)
@@ -34,8 +32,10 @@ nuchart <- charts %>% filter(date >= '1997-08-31', rank<=5, `peak-rank`<=3) %>% 
 
 #1997 onwards
 full<-read_excel('topfill.xlsx')
+p.matall <-full %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
+  as.matrix() %>% cor(use="complete.obs") %>% cor_pmat()
 full %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
-  as.matrix() %>% cor(use="complete.obs")
+  as.matrix() %>% cor(use="complete.obs") %>% ggcorrplot(type = "lower", lab = TRUE, insig = "blank", p.mat = p.matall) +labs(title="1997-2021 Correlations")
 
 
 #1997 to 2000
@@ -92,6 +92,7 @@ plt_4<-full %>%  filter(date >= '2011-01-01' & date <= '2015-12-31') %>% select(
 #pmatrix
 p.mat15<- full %>% filter(date >= '2016-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>% cor_pmat()
+
 #corr matrix and plot 
 plt_5<-full %>% filter(date >= '2016-01-01') %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
   as.matrix() %>% cor(use="complete.obs") %>%
