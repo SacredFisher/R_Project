@@ -1,0 +1,11 @@
+name: shiny
+title:
+username:
+account: sacredfisher
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5646063
+bundleId: 5575826
+url: https://sacredfisher.shinyapps.io/shiny/
+when: 1644808326.21595
+lastSyncTime: 1644808326.21597

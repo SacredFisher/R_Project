@@ -6,6 +6,14 @@ library(patchwork)
 library(gtools)
 library(shinythemes)
 library(bslib)
+library(plyr)
+library(stringr)
+library(RColorBrewer)
+library(writexl)
+library(data.table)
+
+
+
 thematic::thematic_shiny(font = "auto")
 
 
@@ -64,7 +72,7 @@ server <- function(input, output) {
           #corr matrix and plot
           plt <-full %>%  filter(date >= input$dates[1] & date<=input$dates[2]) %>% select(`peak-rank`, `weeks-on-board`, acousticness,danceability,energy,instrumentalness,liveness,loudness, tempo, speechiness, happiness) %>%
             as.matrix() %>% cor(use="complete.obs") %>%
-            ggcorrplot(type = "lower", lab = TRUE, insig = "blank", p.mat = p.mat00) 
+            ggcorrplot(type = "lower", lab = TRUE, insig = "blank", p.mat = p) 
           plt
   
   }) 
