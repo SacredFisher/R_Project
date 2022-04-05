@@ -1,4 +1,4 @@
-<h1>What makes a Billboard Top 5 Song?</h1>
+<h1>What makes a Billboard Top 3 Song?</h1>
 <br>
 <p> The project.R file contains the code wherein the analysis of the <a href = https://www.billboard.com/charts/hot-100/>Billboard Hot 100</a> Songs is done. To answer what makes a Billboard song popular, we must investigate the properties of each of the songs, and compare them to the properties of songs that did not perform as well as others on the Billboard Charts. We accomplish this by comparing those whose maximum rank on the Hot 100 chart was at least 3, and songs that stayed on the charts the longest, with songs that stayed on the charts for less than a week, and songs that whose maximum rank did not surpass 75. </p>
 <p> Finding these songs within particular ranges of years is not very complicated. However, analyzing songs and figuring out their properties is. Luckily, we are able to 
