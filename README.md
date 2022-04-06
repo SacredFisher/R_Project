@@ -13,6 +13,29 @@ The Billboard Hot 100 is a ranking for popular songs. This chart is notable for 
 ## Techniques Utilized
 We will answer the above question by finding all the songs that have had a peak rank of less than 75 on the charts (successful songs, but not 'chart toppers'), and compare how their song charachteristics correlate to the 'weeks on chart', and the 'peak rank' of the song. Furthermore, we perform the same analysis of song charachteristics for the songs that have had a peak rank at or above 3 (the 'chart toppers'). Comparing the attributes found for each group of songs, we can obtain some insight into how the different properties of songs effect the peak Billboard rank and the weeks on the chart.
 
+<!-- 
+## Analyzing the Chart Musical Trends-- 
+ *See behavior of musical charachterstics on charts over time, just for baseline. 
+## Analyzing Bottom of Charts--
+ * Songs that have not broken the peaks, what are their attributes over the years?
+ * What are some commonalities between their properties?
+ * Show Correlation table and graphs, Show change in correlations over years, or 
+something over the years.
+
+## Analyzing the top of Charts--
+* Songs that have broken the 3 peak, what are their attributes over the years. What are some Commonalities?
+* Correlation Table from section, show change over the years. 
+
+## Takeaway
+We can see that while correlation doesnt reflect causation--it's highly likely that the music is 
+
+## Future Works
+
+
+
+
+
+-->
 
 
 
