@@ -8,16 +8,10 @@ invesigate based on the song analytics provided by the <a href=https://developer
 ### [Slide Deck](https://docs.google.com/presentation/d/1cGgpLqONIsODmYG46yCfOVgKW3p2KcB3OZm1x5-XH34/edit?usp=sharing)
 
 ## Introduction and Question
-### Introducing Billboard Hot 100
-### Introducing Spotify Web API
+The Billboard Hot 100 is a ranking for popular songs. This chart is notable for taking into consideration not only number of records sold, but also time played on radio, streaming, and other metrics. The ranking is so popular that many artists found their careers on ranking consistently high on the charts, or gain further popularity by advertising their single as reaching the Top 10, 5, 3, and/or 1. However, there are many songs that do not reach these levels of popularity, and stay amongst the bottom of the charts. Therefore, we want to ask: is there a correlation between properties of songs and song prominence on the Billboard?
 
 ## Techniques Utilized
-## Shiny App
-## Commonalities Among the Best 
-## Oddities
-## Acoustic Music 2011-2015
-## Future Directions
-## Conclusion
+We will answer the above question by finding all the songs that have had a peak rank of less than 75 on the charts (successful songs, but not 'chart toppers'), and compare how their song charachteristics correlate to the 'weeks on chart', and the 'peak rank' of the song. Furthermore, we perform the same analysis of song charachteristics for the songs that have had a peak rank at or above 3 (the 'chart toppers'). Comparing the attributes found for each group of songs, we can obtain some insight into how the different properties of songs effect the peak Billboard rank and the weeks on the chart.
 
 
 
