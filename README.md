@@ -30,7 +30,7 @@ something over the years.
 We can see that while correlation doesnt reflect causation--it's highly likely that the music is 
 
 ## Future Works
-
+Extend by being able to abstact to other critical playlists, and incoporate an AI to try and predict what types of songs will be popular in the future?
 
 
 
